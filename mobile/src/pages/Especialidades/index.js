@@ -4,6 +4,7 @@ import { FontAwesome as Icon, } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import api from '../../services/api'
 import { Checkbox } from 'react-native-paper';
+import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message";
 
 export default function TipoServico() {
     const [especialidades, setEspecialidades] = useState([])
@@ -19,7 +20,7 @@ export default function TipoServico() {
     useEffect(() => {
         async function getEspecialidades() {
             const especialidades = await api.post('listar-especialidade', {
-                tipo_de_servico_id: routeParams.idEspecialidade
+                tipo_de_servico_id: routeParams.idTypeService
             })
             const arrayEspecialidades = []
             especialidades.data.map(response => {
@@ -31,73 +32,136 @@ export default function TipoServico() {
     }, [])
 
     function handleSignUp() {
-
+        const arrayEspecialidades = []
+        arrayEspecialidades.push(especialidade1Checked, especialidade2Checked, especialidade3Checked, especialidade4Checked)
+        arrayEspecialidades.map((response, index) => {
+            if (response === true) {
+                api.post('criar-especialidade-prestador', {
+                    prestador_id: routeParams.idPrestador,
+                    especialidade_id: (index + 1)
+                })
+            }
+        })
+        showMessage({
+            message: 'Cadastrado com sucesso',
+            type: "success",
+        });
+        navigation.navigate('Login')
     }
-    return (
-        <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#393355" }} >
-            <View style={styles.main}>
-                <Text style={styles.title}>Selecione uma ou mais especialidades abaixo</Text>
-            </View>
-            <View style={styles.containerItens}>
-                <View style={styles.itemContainer}>
-                    <Checkbox.Item
-                        label={<Text style={styles.icon}><Icon name="gear" size={30} color="#eee" />{"  "}<Text>{especialidades[0]}</Text></Text>}
-                        labelStyle={styles.itemText}
-                        uncheckedColor="#eee"
-                        status={especialidade1Checked ? 'checked' : 'unchecked'}
-                        onPress={() => {
-                            setEspecialidade1Checked(!especialidade1Checked);
-                        }} />
+
+    function handleListarPrestadores(especialidade_id){
+        navigation.navigate('ListaPrestadores',{
+            especialidade_id,
+            tipo_de_servico_id: routeParams.idTypeService
+        })
+    }
+
+    if (routeParams.logged === false) {
+        return (
+            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#393355" }} >
+                <View style={styles.main}>
+                    <Text style={styles.title}>Selecione {routeParams.messageTypeEspecialty}</Text>
                 </View>
-                <View style={styles.itemContainer}>
-                    <Checkbox.Item
-                        label={<Text style={styles.icon}><Icon name="gear" size={30} color="#eee" />{"  "}<Text>{especialidades[1]}</Text></Text>}
-                        labelStyle={styles.itemText}
-                        uncheckedColor="#eee"
-                        status={especialidade2Checked ? 'checked' : 'unchecked'}
-                        onPress={() => {
-                            setEspecialidade2Checked(!especialidade2Checked);
-                        }} />
+                <View style={styles.containerItens}>
+                    <View style={styles.itemContainer}>
+                        <Checkbox.Item
+                            label={<Text style={styles.icon}><Icon name="gear" size={30} color="#eee" />{"  "}<Text>{especialidades[0]}</Text></Text>}
+                            labelStyle={styles.itemText}
+                            uncheckedColor="#eee"
+                            status={especialidade1Checked ? 'checked' : 'unchecked'}
+                            onPress={() => {
+                                setEspecialidade1Checked(!especialidade1Checked);
+                            }} />
+                    </View>
+                    <View style={styles.itemContainer}>
+                        <Checkbox.Item
+                            label={<Text style={styles.icon}><Icon name="gear" size={30} color="#eee" />{"  "}<Text>{especialidades[1]}</Text></Text>}
+                            labelStyle={styles.itemText}
+                            uncheckedColor="#eee"
+                            status={especialidade2Checked ? 'checked' : 'unchecked'}
+                            onPress={() => {
+                                setEspecialidade2Checked(!especialidade2Checked);
+                            }} />
+                    </View>
+                    <View style={styles.itemContainer}>
+                        <Checkbox.Item
+                            label={<Text style={styles.icon}><Icon name="gear" size={30} color="#eee" />{"  "}<Text>{especialidades[2]}</Text></Text>}
+                            labelStyle={styles.itemText}
+                            uncheckedColor="#eee"
+                            status={especialidade3Checked ? 'checked' : 'unchecked'}
+                            onPress={() => {
+                                setEspecialidade3Checked(!especialidade3Checked);
+                            }} />
+                    </View>
+                    <View style={styles.itemContainer}>
+                        <Checkbox.Item
+                            label={<Text style={styles.icon}><Icon name="gear" size={30} color="#eee" />{"  "}<Text>{especialidades[3]}</Text></Text>}
+                            labelStyle={styles.itemText}
+                            uncheckedColor="#eee"
+                            status={especialidade4Checked ? 'checked' : 'unchecked'}
+                            onPress={() => {
+                                setEspecialidade4Checked(!especialidade4Checked);
+                            }} />
+                    </View>
+                    <TouchableOpacity onPress={handleSignUp} style={styles.link}>
+                        <Text style={styles.linkText}>Concluir cadastro</Text>
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.itemContainer}>
-                    <Checkbox.Item
-                        label={<Text style={styles.icon}><Icon name="gear" size={30} color="#eee" />{"  "}<Text>{especialidades[2]}</Text></Text>}
-                        labelStyle={styles.itemText}
-                        uncheckedColor="#eee"
-                        status={especialidade3Checked ? 'checked' : 'unchecked'}
-                        onPress={() => {
-                            setEspecialidade3Checked(!especialidade3Checked);
-                        }} />
+            </KeyboardAvoidingView>
+        )
+    } else {
+        return (
+            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#393355" }} >
+                <View style={styles.main}>
+                    <Text style={styles.title}>Selecione {routeParams.messageTypeEspecialty}</Text>
                 </View>
-                <View style={styles.itemContainer}>
-                    <Checkbox.Item
-                        label={<Text style={styles.icon}><Icon name="gear" size={30} color="#eee" />{"  "}<Text>{especialidades[3]}</Text></Text>}
-                        labelStyle={styles.itemText}
-                        uncheckedColor="#eee"
-                        status={especialidade4Checked ? 'checked' : 'unchecked'}
-                        onPress={() => {
-                            setEspecialidade4Checked(!especialidade4Checked);
-                        }} />
+                <View style={styles.containerItensLogged}>
+                    <TouchableOpacity style={styles.itemContainerLogged} onPress={() => handleListarPrestadores(1)}>
+                        <View style={styles.containerItem}>
+                            <Icon name="gear" size={30} color="#eee" />
+                            <Text style={styles.itemTextLogged}>{especialidades[0]}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemContainerLogged} onPress={() => handleListarPrestadores(2)}>
+                        <View style={styles.containerItem}>
+                            <Icon name="gear" size={30} color="#eee" />
+                            <Text style={styles.itemTextLogged}>{especialidades[1]}</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.itemContainerLogged} onPress={() => handleListarPrestadores(3)}>
+                        <View style={styles.containerItem}>
+                            <Icon name="gear" size={30} color="#eee" />
+                            <Text style={styles.itemTextLogged}>{especialidades[2]}</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.itemContainerLogged} onPress={() => handleListarPrestadores(4)}>
+                        <View style={styles.containerItem}>
+                            <Icon name="gear" size={30} color="#eee" />
+                            <Text style={styles.itemTextLogged}>{especialidades[3]}</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={handleSignUp} style={styles.link}>
-                    <Text style={styles.linkText}>Concluir</Text>
-                </TouchableOpacity>
-            </View>
-        </KeyboardAvoidingView>
-    )
+            </KeyboardAvoidingView>
+        )
+    }
+
 }
 
 const styles = StyleSheet.create({
     main: {
         flex: 1,
         justifyContent: 'center',
-        paddingStart: 45
+        padding: 24,
     },
     title: {
         color: "#fff",
         fontSize: 25,
-        marginBottom: 65,
-        fontFamily: "Roboto_900Black_Italic"
+        fontFamily: "Roboto_900Black_Italic",
+        alignSelf: "center",
+        textAlign: "center",
+        marginBottom: 72
     },
     itemText: {
         fontSize: 23,
@@ -114,7 +178,25 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     containerItens: {
-        paddingBottom: 70
+        paddingBottom: 55,
+    },
+    containerItensLogged: {
+        paddingBottom: 110
+    },
+    itemTextLogged: {
+        fontSize: 23,
+        color: "#ddd",
+        fontFamily: "Roboto_900Black_Italic",
+        marginHorizontal: 8
+    },
+    itemContainerLogged: {
+        width: "95%",
+        alignSelf: "center",
+        height: 52,
+        justifyContent: 'center',
+        backgroundColor: "#393375",
+        marginVertical: 10,
+        borderRadius: 70,
     },
     containerItem: {
         flex: 1,
@@ -128,8 +210,8 @@ const styles = StyleSheet.create({
     },
     linkText: {
         color: '#eed',
-        fontSize: 16,
+        fontSize: 17,
         fontFamily: "Roboto_900Black_Italic",
-        paddingTop:25
+        paddingTop: 45
     },
 })

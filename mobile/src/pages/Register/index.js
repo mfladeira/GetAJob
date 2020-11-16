@@ -50,10 +50,13 @@ export default function Register() {
                 whatsapp: whatsapp,
                 latitude: latitude,
                 longitude: longitude,
-                classificacao: classificacao
+                classificacao: classificacao,
             })
             navigation.navigate('TipoServico', {
-                idPrestador: response.data.id
+                idPrestador: response.data.id,
+                messageTypeService: "você irá prestar",
+                messageTypeEspecialty: "uma ou mais especialidades",
+                logged: false
             })
         }
     }

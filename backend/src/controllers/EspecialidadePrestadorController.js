@@ -1,26 +1,26 @@
 const EspecialidadePrestador = require('../models/EspecialidadePrestador')
 const Prestador = require('../models/Prestador')
 const Usuario = require('../models/Usuario')
+const Especialidade = require('../models/Especialidade')
 
 class EspecialidadePrestadorController {
     async index(req, res) {
         try {
-            const { especialidade_id } = req.body;
+            const { especialidade_id, tipo_de_servico_id } = req.body;
             const prestador = await EspecialidadePrestador.findAll({
-                where: { especialidade_id },
-                include: Prestador,
-            });
-            const usuario = await Usuario.findOne({
                 where: {
-                    id: prestador[0].Prestador.usuario_id
-                }
-            })
-            return res.json({
-                id: prestador[0].Prestador.id,
-                nome: usuario.nome,
-                email: usuario.email,
-                nota_pessoal: prestador[0].Prestador.nota_pessoal
+                    especialidade_id
+                },
+                attributes: ['id'],
+                include: [
+                    {
+                        model: Prestador, include: [{ model: Usuario, attributes: ['nome', 'latitude', 'longitude', 'email', 'whatsapp'] }],
+                        attributes: ['nota_pessoal', 'id']
+                    },
+                    { model: Especialidade, where: { tipo_de_servico_id }, attributes: ['nome', 'tipo_de_servico_id'] },
+                ],
             });
+            return res.json(prestador);
         } catch (error) {
             return res.json(error)
         }

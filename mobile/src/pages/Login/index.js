@@ -22,7 +22,8 @@ export default function Login() {
                 });
             } else {
                 navigation.navigate('Home', {
-                    email: email
+                    email: email,
+                    nome: response.data.nome,
                 })
                 setEmail('')
                 setPassword('')
@@ -35,10 +36,9 @@ export default function Login() {
     }
 
     return (
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : "height"}>
+        <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' }} >
             <ImageBackground
                 source={require('../../assets/home-background.png')}
-                imageStyle={{ width: 360, height: 700 }}
                 style={styles.container}
             >
                 <View style={styles.main}>
@@ -67,7 +67,7 @@ export default function Login() {
                     </TouchableOpacity>
                 </View>
             </ImageBackground>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingView >
     )
 }
 
@@ -75,6 +75,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 24,
+        resizeMode: 'cover',
+        height: 690,
+        justifyContent: 'center',
     },
     form: {
         marginTop: 110

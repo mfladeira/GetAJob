@@ -7,6 +7,8 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import TipoServico from './pages/TipoServico'
 import Especialidades from './pages/Especialidades'
+import ListaPrestadores from './pages/Lista_Prestadores';
+import PrestadorDetails from './pages/PrestadorDetails';
 
 const AppStack = createStackNavigator()
 
@@ -19,6 +21,8 @@ export default function Routes() {
                 <AppStack.Screen name='Register' component={Register} />
                 <AppStack.Screen name="TipoServico" component={TipoServico} />
                 <AppStack.Screen name="Especialidades" component={Especialidades} />
+                <AppStack.Screen name="ListaPrestadores" component={ListaPrestadores} />
+                <AppStack.Screen name="PrestadorDetails" component={PrestadorDetails} />
             </AppStack.Navigator>
         </NavigationContainer>
     )

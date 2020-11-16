@@ -21,7 +21,8 @@ class UsuarioController {
     async store(req, res) {
         try {
             const data = req.body
-            const usuario = await Usuario.create({ ...data })
+            const whatsapp = `55${data.whatsapp}`
+            const usuario = await Usuario.create({ ...data, whatsapp: whatsapp })
             if (usuario.classificacao === "Prestador") {
                 const { id } = await Prestador.create({
                     usuario_id: usuario.id,

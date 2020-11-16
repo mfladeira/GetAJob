@@ -23,17 +23,19 @@ export default function TipoServico() {
         getTypesService()
     }, [])
 
-    function handleTypeService(idEspecialidade) {
+    function handleTypeService(idTypeService) {
         navigation.navigate('Especialidades', {
             idPrestador: routeParams.idPrestador,
-            idEspecialidade
+            idTypeService,
+            messageTypeEspecialty: routeParams.messageTypeEspecialty,
+            logged: routeParams.logged
         })
     }
 
     return (
         <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#393355" }} >
             <View style={styles.main}>
-                <Text style={styles.title}>Selecione o tipo de serviço que você irá prestar</Text>
+                <Text style={styles.title}>Selecione o tipo de serviço que {routeParams.messageTypeService}</Text>
             </View>
             <View style={styles.containerItens}>
                 <TouchableOpacity style={styles.itemContainer} onPress={() => handleTypeService(1)}>
@@ -79,7 +81,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
         alignSelf: "center",
         marginBottom: 65,
-        fontFamily: "Roboto_900Black_Italic"
+        fontFamily: "Roboto_900Black_Italic",
+        textAlign:'center'
     },
     itemText: {
         fontSize: 23,
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
     },
     itemContainer: {
         borderRadius: 70,
-        width: "85%",
+        width: "95%",
         alignSelf: "center",
         height: 52,
         justifyContent: 'center',
