@@ -9,6 +9,11 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
             },
+            status: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                defaultValue: "pendente"
+            },
             prestador_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,

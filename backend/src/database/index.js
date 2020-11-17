@@ -7,8 +7,9 @@ const Servico = require('../models/Servico')
 const Especialidade = require('../models/Especialidade')
 const EspecialidadePrestador = require('../models/EspecialidadePrestador')
 const TipoServico = require('../models/TipoServico')
+const Disponibilidade = require('../models/Disponibilidade')
 
-const models = [Usuario, Prestador, Servico, TipoServico, Especialidade, EspecialidadePrestador]
+const models = [Usuario, Prestador, Servico, TipoServico, Especialidade, EspecialidadePrestador, Disponibilidade]
 
 class Database {
     constructor() {
@@ -24,10 +25,7 @@ class Database {
             if (model.associate) model.associate(this.connection.models);
             return model;
         })
-
     }
-
-
 }
 
 module.exports = new Database();
