@@ -1,17 +1,10 @@
-const Prestador = require('../models/Prestador')
-const Usuario = require('../models/Usuario')
 const Servico = require('../models/Servico')
 
 class ServicoController {
     async store(req, res) {
-        const { usuario_id, prestador_id } = req.params
-        const { date } = req.body
+        const data = req.body
         try {
-            const servico = await Servico.create({
-                usuario_id: usuario_id,
-                prestador_id: prestador_id,
-                date: date
-            })
+            const servico = await Servico.create(data)
             return res.json(servico)
         } catch (error) {
             return res.json(error)
@@ -19,14 +12,29 @@ class ServicoController {
     }
 
     async index(req, res) {
-        const servicos = await Servico.findAll({
-            attributes: ['date', 'prestador_id', 'usuario_id'],
-            include: [
-                { model: Usuario, as: 'usuarioId' },
-                { model: Prestador, as: 'prestadorId' },
-            ]
+        const data = req.body
+        if (data.classificacao === "Usuario") {
+            const servicos = await Servico.findAll({
+                where: {
+                    "usuario_id": data.usuario_id
+                }
+            })
+            return res.json(servicos)
+        } else {
+            const servicos = await Servico.findAll({
+                where: {
+                    "prestador_id": data.prestador_id
+                }
+            })
+            return res.json(servicos)
+        }
+    }
+
+    async update(req, res){
+        const data = req.body;
+        const servico = await Servico.update({
+            
         })
-        return res.json(servicos)
     }
 }
 
