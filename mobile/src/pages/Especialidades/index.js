@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { KeyboardAvoidingView, View, StyleSheet, Image, Text, TouchableOpacity, FlatList } from 'react-native'
-import { FontAwesome as Icon, } from '@expo/vector-icons'
+import { FontAwesome as Icon } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import api from '../../services/api'
 import { Checkbox } from 'react-native-paper';
@@ -42,15 +42,13 @@ export default function TipoServico() {
                 })
             }
         })
-        showMessage({
-            message: 'Cadastrado com sucesso',
-            type: "success",
-        });
-        navigation.navigate('Login')
+        navigation.navigate('Disponibilidade', {
+            prestador_id: routeParams.idPrestador
+        })
     }
 
-    function handleListarPrestadores(especialidade_id){
-        navigation.navigate('ListaPrestadores',{
+    function handleListarPrestadores(especialidade_id) {
+        navigation.navigate('ListaPrestadores', {
             especialidade_id,
             tipo_de_servico_id: routeParams.idTypeService
         })
@@ -104,7 +102,7 @@ export default function TipoServico() {
                             }} />
                     </View>
                     <TouchableOpacity onPress={handleSignUp} style={styles.link}>
-                        <Text style={styles.linkText}>Concluir cadastro</Text>
+                        <Text style={styles.linkText}>Próximo</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>

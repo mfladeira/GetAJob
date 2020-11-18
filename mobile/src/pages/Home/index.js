@@ -23,7 +23,7 @@ export default function Home() {
     return (
         <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#393355" }} behavior={Platform.OS === 'ios' ? "padding" : ""}>
             <Text style={styles.textWelcome}>Bem Vindo</Text>
-            <Text style={styles.textName}>Mateus Ferreira!!!</Text>
+            <Text style={styles.textName}>{routeParams.nome}!!!</Text>
             <View style={styles.main}>
                 <TouchableOpacity style={styles.linkServico} onPress={handleServices}>
                     <Text style={styles.linkServicoText}>Serviços</Text>

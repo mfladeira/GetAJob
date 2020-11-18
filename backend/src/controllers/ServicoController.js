@@ -30,11 +30,12 @@ class ServicoController {
         }
     }
 
-    async update(req, res){
-        const data = req.body;
-        const servico = await Servico.update({
-            
-        })
+    async update(req, res) {
+        const { status, id } = req.body;
+        const servico = await Servico.update(
+            { status },
+            { where: { id } })
+        return res.json(servico);
     }
 }
 

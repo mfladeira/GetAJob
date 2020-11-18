@@ -27,6 +27,7 @@ export default function Register() {
         const location = await Location.getCurrentPositionAsync()
 
         const { latitude, longitude } = location.coords;
+
         if (classificacao === "Usuario") {
             const response = await api.post('criar-usuario', {
                 nome: name,

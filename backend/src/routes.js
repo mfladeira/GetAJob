@@ -18,7 +18,7 @@ routes.get('/listar-tipos-de-servico', TipoServicoController.index)
 routes.post('/listar-especialidade', EspecialidadeController.index)
 routes.get('/listar-prestadores', PrestadorController.index)
 
-routes.post('/listar-prestador-especialidade', EspecialidadePrestadorController.index) //???
+routes.post('/listar-prestador-especialidade', EspecialidadePrestadorController.index)
 routes.get('/listar-prestadores-especialidade', EspecialidadePrestadorController.show)
 
 routes.post('/criar-especialidade-prestador', EspecialidadePrestadorController.store)
@@ -30,5 +30,6 @@ routes.post('/listar-disponibilidade', DisponibilidadeController.index)
 
 routes.post('/criar-servico', ServicoController.store)
 routes.post('/listar-servicos', ServicoController.index)
+routes.post('/update-servico', ServicoController.update)
 
 module.exports = routes
