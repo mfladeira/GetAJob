@@ -1,5 +1,6 @@
 const Servico = require('../models/Servico')
-
+const Usuario = require('../models/Usuario')
+const Especialidade = require('../models/Especialidade')
 class ServicoController {
     async store(req, res) {
         const data = req.body
@@ -17,14 +18,17 @@ class ServicoController {
             const servicos = await Servico.findAll({
                 where: {
                     "usuario_id": data.usuario_id
-                }
+                },
+                include: [{ model: Usuario, as: 'usuarioId', attributes: ['nome'] }, { model: Especialidade, as: 'especialidadeId', attributes: ['nome'] }]
             })
             return res.json(servicos)
         } else {
             const servicos = await Servico.findAll({
                 where: {
                     "prestador_id": data.prestador_id
-                }
+                },
+                include: [{ model: Usuario, as: 'usuarioId', attributes: ['nome'] }, { model: Especialidade, as: 'especialidadeId', attributes: ['nome'] }]
+
             })
             return res.json(servicos)
         }

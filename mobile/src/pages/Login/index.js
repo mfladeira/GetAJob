@@ -24,7 +24,8 @@ export default function Login() {
                 navigation.navigate('Home', {
                     email: email,
                     nome: response.data.nome,
-                    userId : response.data.id
+                    userId: response.data.id,
+                    classificacao: response.classificacao
                 })
                 setEmail('')
                 setPassword('')

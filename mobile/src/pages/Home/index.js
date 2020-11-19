@@ -14,12 +14,15 @@ export default function Home() {
             messageTypeService: "você está procurando",
             messageTypeEspecialty: "a especialidade que você está procurando",
             logged: true,
-            userId : routeParams.userId
+            userId: routeParams.userId
         })
     }
 
     function handleServices() {
-
+        navigation.navigate('ListaServico', {
+            classificacao: routeParams.classificacao,
+            id: routeParams.userId
+        })
     }
 
     return (

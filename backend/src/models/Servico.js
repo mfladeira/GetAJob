@@ -14,6 +14,7 @@ class Servico extends Model {
     static associate(models) {
         this.belongsTo(models.Prestador, { foreignKey: 'prestador_id', as: 'prestadorId' });
         this.belongsTo(models.Usuario, { foreignKey: 'usuario_id', as: 'usuarioId' });
+        this.belongsTo(models.Especialidade, { foreignKey: 'especialidade_id', as: 'especialidadeId' });
     }
 }
 

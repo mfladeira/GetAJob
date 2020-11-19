@@ -10,6 +10,7 @@ import Especialidades from './pages/Especialidades'
 import ListaPrestadores from './pages/Lista_Prestadores';
 import PrestadorDetails from './pages/PrestadorDetails';
 import Disponibilidade from './pages/Disponibilidade';
+import ListaServico from './pages/Lista_Servicos';
 
 const AppStack = createStackNavigator()
 
@@ -25,6 +26,7 @@ export default function Routes() {
                 <AppStack.Screen name="ListaPrestadores" component={ListaPrestadores} />
                 <AppStack.Screen name="PrestadorDetails" component={PrestadorDetails} />
                 <AppStack.Screen name="Disponibilidade" component={Disponibilidade} />
+                <AppStack.Screen name="ListaServico" component={ListaServico} />
             </AppStack.Navigator>
         </NavigationContainer>
     )
