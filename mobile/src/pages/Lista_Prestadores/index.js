@@ -40,7 +40,9 @@ export default function ListaPrestadores() {
             nota: listNotas[index],
             email: listEmails[index],
             whatsapp: listWhatsapp[index],
-            listPrestadorIds: listPrestadorIds[index]
+            prestadorId: listPrestadorIds[index],
+            userId : routeParams.userId,
+            especialidade_id: routeParams.especialidade_id
         })
     }
 
@@ -75,11 +77,11 @@ export default function ListaPrestadores() {
     return (
         <SafeAreaView style={styles.main}>
             <ScrollView >
-                <List.Section style={styles.section}>
-                    <List.Subheader style={styles.listSubHeader}>Lista de prestadores</List.Subheader>
-                    {listNames.map((response, index) => renderList(response, index))}
-                </List.Section>
-            </ScrollView>
+                    <List.Section style={styles.section}>
+                        <List.Subheader style={styles.listSubHeader}>Lista de prestadores</List.Subheader>
+                        {listNames.map((response, index) => renderList(response, index))}
+                    </List.Section>
+                </ScrollView>
 
         </SafeAreaView >
     )

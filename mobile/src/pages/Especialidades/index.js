@@ -50,7 +50,8 @@ export default function TipoServico() {
     function handleListarPrestadores(especialidade_id) {
         navigation.navigate('ListaPrestadores', {
             especialidade_id,
-            tipo_de_servico_id: routeParams.idTypeService
+            tipo_de_servico_id: routeParams.idTypeService,
+            userId : routeParams.userId
         })
     }
 

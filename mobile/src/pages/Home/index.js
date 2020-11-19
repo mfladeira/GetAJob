@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, StyleSheet, View, KeyboardAvoidingView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { FontAwesome as Icon } from '@expo/vector-icons'
+import api from '../../services/api'
 
 export default function Home() {
     const route = useRoute()
@@ -9,10 +10,11 @@ export default function Home() {
     const navigation = useNavigation()
 
     function handleSearchService() {
-        navigation.navigate('TipoServico',{
+        navigation.navigate('TipoServico', {
             messageTypeService: "você está procurando",
             messageTypeEspecialty: "a especialidade que você está procurando",
-            logged: true
+            logged: true,
+            userId : routeParams.userId
         })
     }
 
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 32,
         alignSelf: 'center',
-        textAlign:"center",
+        textAlign: "center",
         position: 'absolute',
         paddingTop: 100,
         fontFamily: "Roboto_900Black_Italic",

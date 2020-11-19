@@ -28,7 +28,8 @@ export default function TipoServico() {
             idPrestador: routeParams.idPrestador,
             idTypeService,
             messageTypeEspecialty: routeParams.messageTypeEspecialty,
-            logged: routeParams.logged
+            logged: routeParams.logged,
+            userId : routeParams.userId
         })
     }
 
