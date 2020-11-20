@@ -11,6 +11,7 @@ class UsuarioController {
                 email,
                 senha,
             },
+            include: [{ model: Prestador, as: 'prestadorServico', attributes: ['nota_pessoal'] }]
         })
         if (!usuario) {
             return res.json({ error: 'Email ou senha incorreto' })

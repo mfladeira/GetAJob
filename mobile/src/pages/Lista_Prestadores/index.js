@@ -12,11 +12,9 @@ export default function ListaPrestadores() {
     const [listEmails, setListEmails] = useState([]);
     const [listWhatsapp, setListWhatsapp] = useState([]);
     const [listPrestadorIds, setListPrestadorIds] = useState([]);
-
     const route = useRoute();
     const routeParams = route.params;
     const navigation = useNavigation();
-
     function renderList(response, index) {
         return (
             <TouchableOpacity key={index} onPress={() => renderPrestador(index)}>
@@ -35,21 +33,37 @@ export default function ListaPrestadores() {
     }
 
     async function renderPrestador(index) {
-        navigation.navigate('PrestadorDetails',{
+        let somador = 0
+        if (routeParams.tipo_de_servico_id == 2) {
+            somador = 4;
+        } else if (routeParams.tipo_de_servico_id == 3) {
+            somador = 8;
+        } else if (routeParams.tipo_de_servico_id == 4) {
+            somador = 12;
+        }
+        navigation.navigate('PrestadorDetails', {
             name: listNames[index],
             nota: listNotas[index],
             email: listEmails[index],
             whatsapp: listWhatsapp[index],
             prestadorId: listPrestadorIds[index],
-            userId : routeParams.userId,
-            especialidade_id: routeParams.especialidade_id
+            userId: routeParams.userId,
+            especialidade_id: routeParams.especialidade_id + somador
         })
     }
 
     useEffect(() => {
         async function getPrestadores() {
+            let somador = 0
+            if (routeParams.tipo_de_servico_id == 2) {
+                somador = 4;
+            } else if (routeParams.tipo_de_servico_id == 3) {
+                somador = 8;
+            } else if (routeParams.tipo_de_servico_id == 4) {
+                somador = 12;
+            }
             const prestadores = await api.post('listar-prestador-especialidade', {
-                especialidade_id: routeParams.especialidade_id,
+                especialidade_id: routeParams.especialidade_id + somador,
                 tipo_de_servico_id: routeParams.tipo_de_servico_id
             })
             let listNames = [];
@@ -77,11 +91,11 @@ export default function ListaPrestadores() {
     return (
         <SafeAreaView style={styles.main}>
             <ScrollView >
-                    <List.Section style={styles.section}>
-                        <List.Subheader style={styles.listSubHeader}>Lista de prestadores</List.Subheader>
-                        {listNames.map((response, index) => renderList(response, index))}
-                    </List.Section>
-                </ScrollView>
+                <List.Section style={styles.section}>
+                    <List.Subheader style={styles.listSubHeader}>Lista de prestadores</List.Subheader>
+                    {listNames.map((response, index) => renderList(response, index))}
+                </List.Section>
+            </ScrollView>
 
         </SafeAreaView >
     )

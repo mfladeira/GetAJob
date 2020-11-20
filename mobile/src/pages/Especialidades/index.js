@@ -36,9 +36,18 @@ export default function TipoServico() {
         arrayEspecialidades.push(especialidade1Checked, especialidade2Checked, especialidade3Checked, especialidade4Checked)
         arrayEspecialidades.map((response, index) => {
             if (response === true) {
+                let somador = 0
+                if (routeParams.idTypeService == 2) {
+                    somador = 4;
+                } else if (routeParams.idTypeService == 3) {
+                    somador = 8;
+                } else if (routeParams.idTypeService == 4) {
+                    somador = 12;
+                }
                 api.post('criar-especialidade-prestador', {
                     prestador_id: routeParams.idPrestador,
-                    especialidade_id: (index + 1)
+                    especialidade_id: (index + 1) + somador,
+                    tipo_de_servico_id: routeParams.idTypeService
                 })
             }
         })
@@ -51,7 +60,7 @@ export default function TipoServico() {
         navigation.navigate('ListaPrestadores', {
             especialidade_id,
             tipo_de_servico_id: routeParams.idTypeService,
-            userId : routeParams.userId
+            userId: routeParams.userId
         })
     }
 

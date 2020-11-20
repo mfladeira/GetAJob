@@ -9,7 +9,8 @@ class EspecialidadePrestadorController {
             const { especialidade_id, tipo_de_servico_id } = req.body;
             const prestador = await EspecialidadePrestador.findAll({
                 where: {
-                    especialidade_id
+                    especialidade_id,
+                    tipo_de_servico_id
                 },
                 attributes: ['id'],
                 include: [
@@ -17,7 +18,6 @@ class EspecialidadePrestadorController {
                         model: Prestador, include: [{ model: Usuario, attributes: ['nome', 'latitude', 'longitude', 'email', 'whatsapp'] }],
                         attributes: ['nota_pessoal', 'id']
                     },
-                    { model: Especialidade, where: { tipo_de_servico_id }, attributes: ['nome', 'tipo_de_servico_id'] },
                 ],
             });
             return res.json(prestador);
@@ -27,10 +27,11 @@ class EspecialidadePrestadorController {
     }
 
     async store(req, res) {
-        const { prestador_id, especialidade_id } = req.body
+        const { prestador_id, especialidade_id, tipo_de_servico_id } = req.body
         const especialidadePrestador = await EspecialidadePrestador.create({
             prestador_id,
-            especialidade_id
+            especialidade_id,
+            tipo_de_servico_id
         })
         return res.json(especialidadePrestador)
     }

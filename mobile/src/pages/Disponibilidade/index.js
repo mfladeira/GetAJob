@@ -28,11 +28,18 @@ export default function Disponibilidade() {
     const routeParams = route.params;
     const navigation = useNavigation();
 
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
     function onChangeDate(event, selectedDate) {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
-        let hour = currentDate.getHours();
-        let minutos = currentDate.getMinutes();
+        let hour = addZero(currentDate.getHours());
+        let minutos = addZero(currentDate.getMinutes());
         let data = `${hour}:${minutos}`
         if (horarioBoolean === true) {
             setHorarioInicio(data)

@@ -1,6 +1,8 @@
 const Servico = require('../models/Servico')
 const Usuario = require('../models/Usuario')
 const Especialidade = require('../models/Especialidade')
+const Prestador = require('../models/Prestador')
+
 class ServicoController {
     async store(req, res) {
         const data = req.body
@@ -19,7 +21,11 @@ class ServicoController {
                 where: {
                     "usuario_id": data.usuario_id
                 },
-                include: [{ model: Usuario, as: 'usuarioId', attributes: ['nome'] }, { model: Especialidade, as: 'especialidadeId', attributes: ['nome'] }]
+                include: [
+                    { model: Usuario, as: 'usuarioId', attributes: ['nome'] },
+                    { model: Especialidade, as: 'especialidadeId', attributes: ['nome'] },
+                    { model: Prestador, as: 'prestadorId', attributes: ['id'], include: [{ model: Usuario, attributes: ['nome'] }] }
+                ]
             })
             return res.json(servicos)
         } else {
@@ -27,7 +33,11 @@ class ServicoController {
                 where: {
                     "prestador_id": data.prestador_id
                 },
-                include: [{ model: Usuario, as: 'usuarioId', attributes: ['nome'] }, { model: Especialidade, as: 'especialidadeId', attributes: ['nome'] }]
+                include: [
+                    { model: Usuario, as: 'usuarioId', attributes: ['nome'] },
+                    { model: Especialidade, as: 'especialidadeId', attributes: ['nome'] },
+                    { model: Prestador, as: 'prestadorId', attributes: ['id'], include: [{ model: Usuario, attributes: ['nome'] }] }
+                ]
 
             })
             return res.json(servicos)
@@ -40,6 +50,16 @@ class ServicoController {
             { status },
             { where: { id } })
         return res.json(servico);
+    }
+
+    async delete(req, res) {
+        const { id } = req.body;
+        const response = await Servico.destroy({
+            where: {
+                id: id
+            }
+        })
+        return res.json(response)
     }
 }
 

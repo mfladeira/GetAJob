@@ -5,6 +5,7 @@ import { FontAwesome as Icon } from '@expo/vector-icons'
 import api from '../../services/api'
 
 export default function Home() {
+    const [notaPessoal, setNotaPessoal] = useState(0)
     const route = useRoute()
     const routeParams = route.params
     const navigation = useNavigation()
@@ -21,7 +22,7 @@ export default function Home() {
     function handleServices() {
         navigation.navigate('ListaServico', {
             classificacao: routeParams.classificacao,
-            id: routeParams.userId
+            id: routeParams.userId,
         })
     }
 

@@ -23,6 +23,13 @@ module.exports = {
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',
             },
+            tipo_de_servico_id: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: { model: 'tipo_servico', key: 'id' },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE',
+            },
             created_at: {
                 type: Sequelize.DATE,
                 allowNull: false,

@@ -25,7 +25,7 @@ export default function Login() {
                     email: email,
                     nome: response.data.nome,
                     userId: response.data.id,
-                    classificacao: response.classificacao
+                    classificacao: response.data.classificacao,
                 })
                 setEmail('')
                 setPassword('')
