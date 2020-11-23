@@ -255,8 +255,6 @@ const styles = StyleSheet.create({
     section: {
         paddingTop: 75
     },
-
-
     actions: {
         position: 'absolute',
         flexDirection: 'row',

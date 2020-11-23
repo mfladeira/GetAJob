@@ -16,17 +16,17 @@ export default function Register() {
     const navigation = useNavigation();
 
     async function handleSignUp() {
-        const { status } = await Location.requestPermissionsAsync()
-        if (status !== 'granted') {
-            showMessage({
-                message: 'Necessário permissão para obter localização',
-                type: "warning",
-            });
-        }
+        // const { status } = await Location.requestPermissionsAsync()
+        // if (status !== 'granted') {
+        //     showMessage({
+        //         message: 'Necessário permissão para obter localização',
+        //         type: "warning",
+        //     });
+        // }
 
-        const location = await Location.getCurrentPositionAsync()
+        // const location = await Location.getCurrentPositionAsync()
 
-        const { latitude, longitude } = location.coords;
+        // const { latitude, longitude } = location.coords;
 
         if (classificacao === "Usuario") {
             const response = await api.post('criar-usuario', {
@@ -34,8 +34,8 @@ export default function Register() {
                 email: email,
                 senha: password,
                 whatsapp: whatsapp,
-                latitude: latitude,
-                longitude: longitude,
+                // latitude: latitude,
+                // longitude: longitude,
                 classificacao: classificacao
             })
             showMessage({
@@ -49,8 +49,8 @@ export default function Register() {
                 email: email,
                 senha: password,
                 whatsapp: whatsapp,
-                latitude: latitude,
-                longitude: longitude,
+                // latitude: latitude,
+                // longitude: longitude,
                 classificacao: classificacao,
             })
             navigation.navigate('TipoServico', {
@@ -67,7 +67,7 @@ export default function Register() {
                 <Text style={styles.title}>REGISTRO</Text>
                 <TextInput style={styles.input} placeholder="Nome.." value={name} onChangeText={setName} />
                 <TextInput style={styles.input} placeholder="Email.." value={email} onChangeText={setEmail} />
-                <TextInput style={styles.input} placeholder="Senha.." value={password} onChangeText={setPassword} secureTextEntry={true} />
+                <TextInput style={styles.input}  placeholder="Senha.." value={password} onChangeText={setPassword} secureTextEntry={true} />
                 <TextInput style={styles.input} placeholder="Whatsapp.." value={whatsapp} onChangeText={setWhatsapp} />
                 <View>
                     <Checkbox.Item

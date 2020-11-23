@@ -15,7 +15,7 @@ class EspecialidadePrestadorController {
                 attributes: ['id'],
                 include: [
                     {
-                        model: Prestador, include: [{ model: Usuario, attributes: ['nome', 'latitude', 'longitude', 'email', 'whatsapp'] }],
+                        model: Prestador, include: [{ model: Usuario, attributes: ['nome', 'email', 'whatsapp'] }],
                         attributes: ['nota_pessoal', 'id']
                     },
                 ],

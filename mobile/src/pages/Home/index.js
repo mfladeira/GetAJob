@@ -9,7 +9,18 @@ export default function Home() {
     const route = useRoute()
     const routeParams = route.params
     const navigation = useNavigation()
-
+    const [idPrestador, setIdPrestador] = useState(0)
+    useEffect(() => {
+        async function getPrestador() {
+            const data = await api.post('listar-prestador', {
+                id: routeParams.userId
+            })
+            setIdPrestador(data.data.id)
+        }
+        if(routeParams.classificacao === "Prestador"){
+            getPrestador();
+        }
+    }, [])
     function handleSearchService() {
         navigation.navigate('TipoServico', {
             messageTypeService: "você está procurando",
@@ -20,9 +31,15 @@ export default function Home() {
     }
 
     function handleServices() {
+        let id = 0;
+        if (routeParams.classificacao === "Prestador") {
+            id = idPrestador
+        } else {
+            id = routeParams.userId
+        }
         navigation.navigate('ListaServico', {
             classificacao: routeParams.classificacao,
-            id: routeParams.userId,
+            id: id,
         })
     }
 

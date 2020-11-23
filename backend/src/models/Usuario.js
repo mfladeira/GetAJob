@@ -8,9 +8,6 @@ class Usuario extends Model {
             senha: Sequelize.STRING,
             whatsapp: Sequelize.STRING,
             classificacao: Sequelize.STRING,
-            latitude: Sequelize.DECIMAL,
-            longitude: Sequelize.DECIMAL,
-            
         }, { sequelize, tableName: 'usuario' })
     }
 
