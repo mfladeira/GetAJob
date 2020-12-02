@@ -6,7 +6,7 @@ class PrestadorController {
     async show(req, res) {
         const { id } = req.body;
         const prestador = await Prestador.findOne({
-            where: { usuario_id: id },
+            where: { id },
         });
         return res.json(prestador);
     }
